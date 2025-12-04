@@ -1,70 +1,61 @@
-**Aplikasi Pelaporan Infrastruktur Bermasalah – Wonosobo
-📌 Nama Produk**
+# 🚧 LaporinAja
+**Aplikasi Pelaporan Infrastruktur Bermasalah / Rusak – Area Kajian Wonosobo** 📱
 
-**Aplikasi Pelaporan Infrastruktur Bermasalah / Rusak – Area Kajian Wonosobo**
-**📝 Deskripsi Produk**
+## 📝 Deskripsi Produk
+**LaporinAja** adalah aplikasi mobile untuk melaporkan kerusakan infrastruktur di Wonosobo secara cepat, akurat, dan real-time. Masyarakat dapat melaporkan kondisi jalan, jembatan, dan fasilitas umum dengan mudah melalui ponsel.
 
-Aplikasi ini merupakan sistem pelaporan kerusakan infrastruktur berbasis mobile yang memungkinkan masyarakat Wonosobo untuk melaporkan kondisi jalan, jembatan, dan fasilitas umum secara cepat, akurat, dan real-time. Aplikasi dilengkapi fitur foto, lokasi GPS, peta laporan, riwayat laporan, serta statistik sederhana untuk mendukung pemantauan dan penanganan kerusakan oleh pihak terkait.
+### Fitur Utama
 
-**🧩 Komponen Pembangun Produk**
+| Fitur | Keterangan |
+|-------|------------|
+| 📸 Upload Foto | Ambil foto kerusakan langsung dari kamera ponsel |
+| 🌐 GPS Otomatis | Lokasi laporan tercatat otomatis |
+| 🗺️ Peta Interaktif | Melihat lokasi semua laporan |
+| 🕘 Riwayat Laporan | Menyimpan laporan sebelumnya |
+| 📊 Statistik | Memantau jumlah dan status laporan |
 
-1. React Native (Expo) – Framework utama untuk pengembangan aplikasi mobile.
-2. Firebase Authentication – Untuk login dan manajemen akun pengguna.
-3. Firebase Realtime Database – Menyimpan laporan, lokasi, dan status laporan.
-4. Firebase Storage – Menyimpan file foto laporan (jika sudah diimplementasikan).
-5. Expo Location API – Mengambil koordinat GPS pengguna secara otomatis.
-6. Expo ImagePicker/Camera API – Mengambil gambar kerusakan dari kamera ponsel.
-7. React Native Maps / Leaflet – Menampilkan lokasi laporan pada peta.
+## 🧩 Komponen Teknologi
 
-📂 **Sumber Data**
+| Komponen | Fungsi |
+|----------|--------|
+| ⚛️ React Native (Expo) | Framework utama aplikasi mobile |
+| 🔑 Firebase Authentication | Login & manajemen akun pengguna |
+| 📂 Firebase Realtime Database | Menyimpan laporan, koordinat, dan status |
+| 🖼️ Firebase Storage | Menyimpan foto laporan |
+| 📍 Expo Location API | Mengambil koordinat GPS otomatis |
+| 📷 Expo ImagePicker / Camera | Mengambil foto kerusakan |
+| 🗺️ React Native Maps / Leaflet | Menampilkan laporan di peta |
 
-Data diperoleh dari:
-1. Input pengguna berupa foto, deskripsi kerusakan, dan titik koordinat.
-2. Data lokasi GPS otomatis melalui Expo Location API.
-3. Penyimpanan laporan secara real-time pada Firebase.
+## 📂 Sumber Data
+- Input pengguna: **foto, deskripsi, titik koordinat**  
+- Lokasi GPS otomatis via **Expo Location API**  
+- Penyimpanan laporan **real-time di Firebase**  
 
-**📸 Tangkapan Layar Komponen Penting Produk**
+## 📸 Tangkapan Layar
 
-![WhatsApp Image 2025-12-04 at 07 45 17_4920d3a1](https://github.com/user-attachments/assets/587c2858-d2ac-4b0d-835c-8fd9e31d52df)
+### Beranda & Tambah Laporan
+<table>
+<tr>
+<td><img src="https://github.com/user-attachments/assets/51beda1c-5ba6-4b9c-8777-f698fca9d2be" width="250px" /><br>Beranda</td>
+<td><img src="https://github.com/user-attachments/assets/a49ea340-3706-485c-b8db-cc2a1773ec8e" width="250px" /><br>Tambah Laporan</td>
+<td><img src="https://github.com/user-attachments/assets/b6739ded-195b-4599-966f-413dfba7b2a5" width="250px" /><br>Bantuan</td>
+<td><img src="https://github.com/user-attachments/assets/743ef379-15f1-4aad-925f-8f0834267df5" width="250px" /><br>Riwayat Laporan</td>
+<td><img src="https://github.com/user-attachments/assets/8182be01-98d1-41f6-894a-544e414dbf38" width="250px" /><br>Peta</td>
+<td><img src="https://github.com/user-attachments/assets/7c51f05a-29b1-4034-af1a-da560b008f4d" width="250px" /><br>Profil</td>
+<td><img src="https://github.com/user-attachments/assets/93ad890e-90c2-459d-a619-2555e1dd6809" width="250px" /><br>Register</td>
+<td><img src="https://github.com/user-attachments/assets/490c3b81-b9c9-4824-bd8d-9c88a622e4eb" width="250px" /><br>Login</td>
+<td><img src="https://github.com/user-attachments/assets/9f0938b2-8516-440b-b65f-fbb39097d01b" width="250px" /><br>Profil setelah login</td>
+<td><img src="https://github.com/user-attachments/assets/e98042d7-14bb-4f19-b958-086180d8d863" width="250px" /><br>Edit Status</td>
+</tr>
+</table>
 
-**(Beranda)**
+## ✅ Keunggulan Aplikasi
+- 📡 Cepat & real-time  
+- 👨‍👩‍👧‍👦 Mudah digunakan semua kalangan  
+- 🏗️ Mempermudah pemantauan kerusakan infrastruktur  
+- 💾 Data laporan tersimpan otomatis & terpusat  
 
-![WhatsApp Image 2025-12-04 at 08 19 15_97c02c1e](https://github.com/user-attachments/assets/8f4c8d35-5429-4502-9456-38a9b6e5c136)
-
-**(Tambah Laporan)**
-
-![WhatsApp Image 2025-12-04 at 08 19 15_96b90d0d](https://github.com/user-attachments/assets/d8924d77-f293-4bb6-b413-02c4a62f411f)
-
-**(Peta Laporan)**
-
-![WhatsApp Image 2025-12-04 at 08 19 16_53c8a90f](https://github.com/user-attachments/assets/fd77a332-a8c0-4282-ab16-2a7fab43eafc)
-
-**(Bantuan)**
-
-![WhatsApp Image 2025-12-04 at 08 19 16_e1b3e8ff](https://github.com/user-attachments/assets/0bd50a9e-66d2-4c09-bc98-29c9ec3ddfac)
-
-**(Riwayat Laporan)**
-
-![WhatsApp Image 2025-12-04 at 08 19 16_69231476](https://github.com/user-attachments/assets/a1c5c923-ceae-4897-a2ed-74bb36ce4a36)
-
-**(Edit Laporan)**
-
-![WhatsApp Image 2025-12-04 at 08 19 17_51fa2689](https://github.com/user-attachments/assets/7fec0346-f421-42e9-84ad-b7939a9238a4)
-
-**(Profil sebelum login)**
-
-![WhatsApp Image 2025-12-04 at 08 19 17_17061cc3](https://github.com/user-attachments/assets/5e81ad6f-12b4-4ef1-9bb7-bf58b36370f4)
-
-**(Login)**
-
-![WhatsApp Image 2025-12-04 at 08 19 18_cc275d08](https://github.com/user-attachments/assets/0fc36441-99e7-48f8-9365-e442cef733b0)
-
-**(Register)**
-
-![WhatsApp Image 2025-12-04 at 08 19 18_63ea6642](https://github.com/user-attachments/assets/156453f2-bd32-48aa-9dbd-09924ca93aba)
-
-**(Pofil setelah login)**
-
-![WhatsApp Image 2025-12-04 at 08 19 18_7b063099](https://github.com/user-attachments/assets/b6e314db-7156-4446-b5b7-86a220fad76f)
-
-**(Edit Progress)**
+## 🛠️ Badge Teknologi
+![React Native](https://img.shields.io/badge/React_Native-20232A?style=flat&logo=react) 
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase)  
+![Expo](https://img.shields.io/badge/Expo-000020?style=flat&logo=expo)
