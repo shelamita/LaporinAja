@@ -41,6 +41,8 @@
 <td><img src="https://github.com/user-attachments/assets/b6739ded-195b-4599-966f-413dfba7b2a5" width="250px" /><br>Bantuan</td>
 <td><img src="https://github.com/user-attachments/assets/743ef379-15f1-4aad-925f-8f0834267df5" width="250px" /><br>Riwayat Laporan</td>
 <td><img src="https://github.com/user-attachments/assets/8182be01-98d1-41f6-894a-544e414dbf38" width="250px" /><br>Peta</td>
+</tr>
+<tr>
 <td><img src="https://github.com/user-attachments/assets/7c51f05a-29b1-4034-af1a-da560b008f4d" width="250px" /><br>Profil</td>
 <td><img src="https://github.com/user-attachments/assets/93ad890e-90c2-459d-a619-2555e1dd6809" width="250px" /><br>Register</td>
 <td><img src="https://github.com/user-attachments/assets/490c3b81-b9c9-4824-bd8d-9c88a622e4eb" width="250px" /><br>Login</td>
