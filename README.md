@@ -8,7 +8,7 @@
 
 | Fitur | Keterangan |
 |-------|------------|
-| 📸 Upload Foto | Ambil foto kerusakan langsung dari kamera ponsel |
+| 📸 Upload Foto | Foto kerusakan langsung dari galeri ponsel |
 | 🌐 GPS Otomatis | Lokasi laporan tercatat otomatis |
 | 🗺️ Peta Interaktif | Melihat lokasi semua laporan |
 | 🕘 Riwayat Laporan | Menyimpan laporan sebelumnya |
