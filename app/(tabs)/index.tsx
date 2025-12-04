@@ -1,98 +1,262 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { firebaseConfig } from "../../firebase-config";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { initializeApp } from "firebase/app";
+import { getDatabase, onValue, ref } from "firebase/database";
 
-export default function HomeScreen() {
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+export default function Beranda() {
+  const router = useRouter();
+  const [lastReport, setLastReport] = useState(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [stats, setStats] = useState({
+    total: 0,
+    selesai: 0,
+    proses: 0
+  });
+
+  // realtime waktu
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const q = ref(db, "laporan/");
+    onValue(q, (snap) => {
+      const val = snap.val() || {};
+
+      // ubah ke array
+      const arr = Object.keys(val).map((key) => ({
+        id: key,
+        ...val[key],
+      }));
+
+      // hitung statistik
+      const total = arr.length;
+      const selesai = arr.filter(r => r.status?.toLowerCase() === "selesai").length;
+      const proses = arr.filter(r => r.status?.toLowerCase() === "proses").length;
+
+      setStats({ total, selesai, proses });
+
+      // laporan terbaru
+      if (arr.length > 0) {
+        const newest = arr[arr.length - 1];
+        setLastReport(newest);
+      }
+    });
+  }, []);
+
+  // ambil laporan terakhir
+  useEffect(() => {
+    const q = ref(db, "laporan/");
+    onValue(q, (snap) => {
+      const val = snap.val() || {};
+      const arr = Object.keys(val).map((key) => ({
+        id: key,
+        ...val[key],
+      }));
+      if (arr.length > 0) {
+        const newest = arr[arr.length - 1];
+        setLastReport(newest);
+      }
+    });
+  }, []);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View style={{ flex: 1 }}>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* SCROLL VIEW */}
+      <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 100 }}>
+
+        {/* JUDUL */}
+        <Text style={styles.title}>MENYAPA WONOSOBO</Text>
+
+        {/* HEADER IMAGE */}
+        <Image
+          source={require("../../assets/images/wonosobo.jpg")}
+          style={styles.headerImage}
+          resizeMode="cover"
+        />
+
+        <Text style={styles.subtitle}>Kami siap membantu laporanmu...</Text>
+
+        {/* CARD INFO */}
+        <View style={styles.cardCombined}>
+          <Text style={styles.dateText}>
+            {currentTime.toLocaleDateString("id-ID", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </Text>
+
+          <Text style={styles.timeText}>
+            {currentTime.toLocaleTimeString("id-ID")}
+          </Text>
+
+          <View style={styles.divider} />
+
+          <Text style={styles.cardTitle}>Status Laporan</Text>
+
+          {lastReport ? (
+            <>
+              <Text style={styles.text}>Jenis Infrastruktur: {lastReport.jenisInfra}</Text>
+              <Text style={styles.text}>Lokasi: {lastReport.lokasi}</Text>
+              <Text style={styles.text}>Status: {lastReport.status || 'Belum ditentukan'}</Text>
+            </>
+          ) : (
+            <Text style={styles.text}>Belum ada laporan.</Text>
+          )}
+
+        </View>
+
+        <View style={styles.statCard}>
+          <Text style={styles.statTitle}>Statistik Bulan Ini</Text>
+
+          <View style={styles.statRow}>
+            <View style={styles.statBox}>
+              <Text style={styles.statNumber}>{stats.total}</Text>
+              <Text style={styles.statLabel}>Laporan</Text>
+            </View>
+
+            <View style={styles.statBox}>
+              <Text style={styles.statNumber}>{stats.selesai}</Text>
+              <Text style={styles.statLabel}>Selesai</Text>
+            </View>
+
+            <View style={styles.statBox}>
+              <Text style={styles.statNumber}>{stats.proses}</Text>
+              <Text style={styles.statLabel}>Proses</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* FOOTER BUTTONS (NON-FLOATING) */}
+        <View style={styles.bottomButtons}>
+          <TouchableOpacity style={styles.fab}
+            onPress={() => router.push("/addreport")}>
+            <Image source={require("../../assets/images/report.png")} style={styles.icon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.fab}
+            onPress={() => router.push("/mapwebview")}>
+            <Image source={require("../../assets/images/map.png")} style={styles.icon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.fab}
+            onPress={() => router.push("/help")}>
+            <Image source={require("../../assets/images/help.png")} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+    </View>
   );
+
 }
 
+
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  title: { fontSize: 24, fontWeight: "bold", marginBottom: 20, textAlign: "center", color: "#e91e63" },
+  subtitle: { fontSize: 15, marginBottom: 20, textAlign: "center" },
+  text: { textAlign: "center" },
+  bottomButtons: {
+    flexDirection: "row",          // horizontal
+    justifyContent: "space-around", // rata tengah dan beri jarak merata
+    marginVertical: 20,             // jarak atas & bawah
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+
+  cardCombined: {
+    padding: 18,
+    borderRadius: 12,
+    backgroundColor: "#ffe1ea",
+    marginBottom: 20,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: "#ffb5c8",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+
+  dateText: { fontSize: 15, textAlign: "center", marginBottom: 4 },
+  timeText: { fontSize: 18, fontWeight: "bold", textAlign: "center" },
+  divider: { height: 1, backgroundColor: "#ff8fab", marginVertical: 12 },
+
+  cardTitle: { fontSize: 16, fontWeight: "bold", textAlign: "center" },
+
+  fabContainer: {
+    position: "absolute",
+    bottom: 25,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    paddingHorizontal: 20,
   },
+  fab: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#ff8fab",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+  },
+  icon: {
+    width: 28,
+    height: 28,
+    tintColor: "white",
+  },
+  statCard: {
+    marginTop: 10,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: "#fff0f6",
+    borderWidth: 1,
+    borderColor: "#ffb6d1",
+    marginBottom: 20,
+  },
+
+  statTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+
+  statRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  statBox: {
+    flex: 1,
+    alignItems: "center",
+  },
+
+  statNumber: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#e91e63",
+  },
+
+  statLabel: {
+    fontSize: 13,
+    marginTop: 4,
+    color: "#333",
+  },
+
+  headerImage: {
+    width: "100%",
+    height: 160,
+    borderRadius: 12,
+    marginBottom: 15,
+  },
+
 });
