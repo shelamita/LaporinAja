@@ -33,7 +33,6 @@
 
 ## 📸 Tangkapan Layar
 
-### Beranda & Tambah Laporan
 <table>
 <tr>
 <td><img src="https://github.com/user-attachments/assets/51beda1c-5ba6-4b9c-8777-f698fca9d2be" width="250px" /><br>Beranda</td>
